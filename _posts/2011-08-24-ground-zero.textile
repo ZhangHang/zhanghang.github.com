@@ -10,7 +10,6 @@ category: life
 
 * iLife 11
 * Evernote
-* Skype
 * QQ
 * OmmWriter
 * Wunderlist
@@ -25,6 +24,6 @@ category: life
 * Keynote
 * Mac OS X Lion
 
-在不远的一段日子里，我会对系统自带软件的利用率达到一个更高的境界。
+在不远的未来，我对手头软件的利用率会提高很多。
 
 接下来，迎接转型期。
