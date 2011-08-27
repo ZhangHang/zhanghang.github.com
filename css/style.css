@@ -391,6 +391,7 @@ span.balloon {
 	font-size:35px;
 	color:#fff;
 	letter-spacing:3px;
+	text-shadow: 0.1em 0.1em 0.2em black
 }
 
 #content .cnt p {
