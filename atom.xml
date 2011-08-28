@@ -5,8 +5,8 @@ layout: nil
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>ZH's Log</title>
- <link href="http://www.imzh.me/atom.xml" rel="self"/>
- <link href="http://www.imzh.me/"/>
+ <link href="http://blog.leezhong.com/atom.xml" rel="self"/>
+ <link href="http://blog.leezhong.com/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
  <id>http://blog.leezhong.com/</id>
  <author>
