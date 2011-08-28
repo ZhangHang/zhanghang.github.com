@@ -16,13 +16,14 @@
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
 		</script>
+		<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 	</head>
 
 	<body>
 		<div id="logo"><h1><a href="/">ZH's Log</a></h1></div>
 		<div id="wrapper">
 			<div id="content">
-				<a target="_blank" style="float:right;margin-top:15px" href="http://twitter.com/share?url=http://www.imzh.me{{ page.url }}&via=lzyy&text={{ page.title }}"><span class="balloon">retweet</span><img src="/image/tweet.png" /></a>
+				<a style="float:right;margin-top:15px" ><div class="g-plusone" data-annotation="none"></div></a>
 				<h2>{{ page.title }}</h2>
 				<div class="cnt">
 					{{ content }}
