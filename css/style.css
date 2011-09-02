@@ -38,7 +38,6 @@ body {
 	-moz-background-size:100% auto;
 	background-attachment:fixed;
 	background-color:#666;
-	/*background-image:url("../images/background.jpg");*/
 	background-position:center center;
 	font-family:"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
@@ -62,17 +61,20 @@ span#beans {
 	color:#72BF44;
 }
 a:hover, a:hover span#eighty, a:hover span#beans {
-	color:#444444;
+	//color:#444444;
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.10);
+
 }
 h1 a:hover {
-	color:#ddd;
+	//color:#ddd;
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.10);
 }
 div#wrapper {
 	-moz-border-radius:5px 5px 5px 5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 	-moz-box-shadow:0 1px 0 #FFFFFF;
-	background-color:#EEEEEE;
+	background-image:url("/image/bg.jpg");
 	color:#222222;
 	font-size:14px;
 	line-height:190%;
@@ -92,7 +94,8 @@ div#wrapper {
 }
 
 #content .posts li a:hover {
-	background:#ddd;
+	//background:#ddd;
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.10);
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 }
@@ -102,8 +105,6 @@ div#content img, div#content object {
 	-webkit-border-radius:5px;
 	border-radius:5px;
 	-moz-box-shadow:0 1px 0 #FFFFFF;
-	/*border:5px solid #222222;*/
-	/*width:680px;*/
 }
 div#content li {
 	list-style:disc inside none;
@@ -168,26 +169,6 @@ ul.posts li .date {
 	margin:0;
 }
 
-/*
-h1 {
-	-moz-border-radius:5px 5px 5px 5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	-moz-box-shadow:0 1px 0 #FFFFFF;
-	background-color:#222222;
-	color:#FFFFFF;
-	display:inline;
-	float:left;
-	font-weight:400;
-	line-height:150%;
-	padding:10px;
-	text-shadow:0 1px 0 #000000;
-}
-h1 a {
-	color:#FFFFFF;
-	font-weight:400;
-}
-*/
 h2, h3, h4, h5, h6 {
 	font-weight:900;
 	line-height:100%;
@@ -218,7 +199,7 @@ div#content li ul li {
 	margin-bottom:50px;
 }
 .cnt h3 {
-	background:none repeat scroll 0 0 #DDDDDD;
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.10);
 	font-size:25px;
 	margin:20px -20px;
 	padding:10px 20px;
@@ -344,7 +325,8 @@ span.balloon {
 }
 
 #content #sidebar li a:hover {
-	background:#ddd;
+	//background:#ddd;
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.10);
 	-moz-border-radius:2px;
 	-webkit-border-radius:2px;
 	border:0;
@@ -378,7 +360,7 @@ span.balloon {
 	-moz-border-radius:5px;
 	-webki-border-radius:5px;
 	border-radius:5px;
-	background:#ddd;
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.10);
 }
 
 #logo {
