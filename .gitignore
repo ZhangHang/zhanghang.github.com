@@ -6,3 +6,7 @@ _site
 .gitignore
 _posts/.DS_Store
 .gitignore
+
+_posts/.DS_Store
+
+.gitignore
