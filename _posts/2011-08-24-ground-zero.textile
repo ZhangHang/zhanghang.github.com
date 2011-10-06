@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Ground Zero
-category: life
+category: LIFE
 ---
 
 停止了偷窃行为，删除了所有的盗版软件。 
