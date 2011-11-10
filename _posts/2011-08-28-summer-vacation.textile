@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 2011暑假
-category: LIFE
+category: life
 ---
 
 假期便意味着你有很大一段时间去探索人生，去看或是平淡或是惊艳的风景，我喜欢探索，去做疯狂的事。

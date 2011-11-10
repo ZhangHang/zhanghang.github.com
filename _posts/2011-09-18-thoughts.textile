@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 一些想法
-category: COLLEGE
+category: college
 ---
 
 过完七月某个悠闲下午，我跨过了大一这一年。
