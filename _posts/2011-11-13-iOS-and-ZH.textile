@@ -1,0 +1,98 @@
+---
+layout: post
+title: iOS 和我
+category: life
+---
+几个月前手里的 Nokia C5 阵亡了，相继用了公司借我的 Samsung S8500 和三星送的 Samsung 7250 后我得出一结论：
+<pre>
+三星自主的 Bada 真是太棒了，我用它这几个月 QQ 不挂，短信能不发就不发，甚至都不打电话了，这诡异的可触摸长方体在我身上竟然跟BB机没区别。
+</pre>
+眼馋 iOS 好一阵子后，我终于在一个月前买了 iPod Touch 4，稍微把自己拉出了泥沼。发现前方一片光明。
+
+在这里总结一下我使用 Touch 的经历。
+
+我的原则是：
+<pre>
+生命有限，绝不放在无止境地尝鲜上，有那些时间我会去做更多有有趣的事情。应用尽量的少而精，该花钱就花钱，
+</pre>
+
+<image src="/image/iCloud.png">  
+
+首先，刚买回来我便将它升到了 iOS 5，利用 iCloud 得到了丝绸般顺滑的同步体验。
+
+
+h3. Reminder
+
+<image src="/image/reminder.jpg">  
+Get Things Done 类的程序最重要的是速度快，同步，简单 。这个在 iOS 5 后内建的程序都做到了。
+ 
+h3. Mail
+ 
+<image src="/image/mail.jpg">  
+It just works.
+
+h3. <a href="http://www.instapaper.com">Instapaper</a>
+
+<image src="/image/instapaper.jpg">
+
+按作者的话说“A simple tool to save web pages for reading later.”
+整个流程非常的简单，当你想要把当前页面保存下来，点一下书签栏的“ Read it Later ”，boom,完成了。
+程序会把这篇文章的内容提取出来，很认真的排版，方便阅读。
+
+h3. instagram
+
+<image src="/image/instagram.png">
+保存我生命中某个有意义时间点的工具，即使是 iPod Touch 这种像的很低的设备 instagram 也能照出很好的效果。
+<image src="/image/morning.jpg"width="700">
+	
+
+h3. Dropbox
+
+<image src="/image/dropbox.png">
+	
+这是一个同步存储服务，它会把你电脑上的某个文件夹同步到你所有的设备中。永远不会丢。
+
+例子：有一个课件你想路上看，把它放到文件夹中，打开 Dropbox ，打开，看。
+
+h3.  Sleep Cycle
+
+<image src="/image/sleepcycle.png">
+	
+你有过起床以后头疼的经历吧？人睡眠分深睡眠和浅睡眠两种状态，如果你在深睡眠强行被叫醒，那你就头疼了。
+它就是解决这个问题的。
+这软件神了，你睡前设定闹铃，把它放在身旁，它利用设备内置的加速度传感器分析你身体的震动，判断你处于哪种睡眠状态并纪录，用最适合的声音慢慢把你叫醒。
+
+h3. Nike Training
+
+<image src="/image/niketraining.png">
+
+你的健身减肥教练。里面有非常详尽的健身指导。
+
+
+h3. 下厨房
+
+<image src="/image/xiachufang.png">
+
+首先，下厨房是一个美食网站，有非常多菜谱。看的总让人流口水。
+其次，网站设计的非常干净，我比较在意这个，我从这个网站学到了许多设计上的东西。
+在其次，在 Beijing Open Party 上听过创始人《将感情融入产品》的演讲，有好感。
+最后，iOS 版本延续了网站的风格。
+
+h3. 豆瓣电台
+
+<image src="/image/doubanFM.png">
+根据你的喜好来播放音乐，我爱豆瓣。
+
+h3. 更多
+
+* 拓词 - 背单词利器
+* OuO - 卖萌专用
+* 知乎
+* Days Matter
+* 随手记
+* 植物大战僵尸
+* 水果忍者
+* 微信
+* 飞聊
+* 人人网
+* Twitter
