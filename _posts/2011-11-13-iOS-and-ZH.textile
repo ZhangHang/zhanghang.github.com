@@ -42,7 +42,7 @@ h3. <a href="http://www.instapaper.com">Instapaper</a>
 h3. instagram
 
 <image src="/image/instagram.png">
-保存我生命中某个有意义时间点的工具，即使是 iPod Touch 这种像的很低的设备 instagram 也能照出很好的效果。
+保存我生命中某个有意义时间点的工具，即使是 iPod Touch 这种像素很低的设备 instagram 也能照出很好的效果。
 <image src="/image/morning.jpg"width="700">
 	
 
