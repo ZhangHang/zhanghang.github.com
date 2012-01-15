@@ -3,10 +3,20 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>Entrance</title>
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		
+				
 		<script src="/scripts/MD5.js"></script>
+		
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-24590058-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
 		
 		<script type="text/javascript">
 			
@@ -102,5 +112,37 @@
 	</div>
 	
 	</body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		jQuery.cookie = function (key, value, options) {
 
-</htmk>
+	    if (arguments.length > 1 && String(value) !== "[object Object]") {
+	        options = jQuery.extend({}, options);
+
+	        if (value === null || value === undefined) {
+	            options.expires = -1;
+	        }
+
+	        if (typeof options.expires === 'number') {
+	            var days = options.expires, t = options.expires = new Date();
+	            t.setDate(t.getDate() + days);
+	        }
+
+	        value = String(value);
+
+	        return (document.cookie = [
+	            encodeURIComponent(key), '=',
+	            options.raw ? value : encodeURIComponent(value),
+	            options.expires ? '; expires=' + options.expires.toUTCString() : '',
+	            options.path ? '; path=' + options.path : '',
+	            options.domain ? '; domain=' + options.domain : '',
+	            options.secure ? '; secure' : ''
+	        ].join(''));
+	    }
+
+	    options = value || {};
+	    var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
+	    return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
+	};
+	</script>
+</html>
