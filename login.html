@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Login Page</title>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		
+		<script src="/scripts/MD5.js"></script>
+		
+		<script type="text/javascript">
+			
+			function Goto(){
+				
+				var pURL = "http://www.imzh.me/42/";
+				
+				var keyValue = document.getElementById("nav-keyword").value;
+				var keyValueMD5 = MD5(keyValue);
+				
+				var keyMD5 = new Array("2f360b70e0ecf402694429fac3a9255d");
+				
+				
+				for (index =0;index < keyMD5.length;index++){
+					if(keyValueMD5 == keyMD5[index])
+						break;
+				}
+				
+				if(index == keyMD5.length){
+		         
+				}else{
+					pURL += MD5(keyValueMD5+keyValueMD5+"Welcome");	
+					pURL += ".html"
+					open(pURL);
+				}
+									
+			}
+			
+		</script>
+		
+	<style>
+		body{
+			font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
+		    font-weight: 300;
+		    line-height: 1.625;
+			background-color: #292929;
+		}
+		
+		#nav-keyword{
+		    border: none;
+		    width: 270px;
+		    height: 26px;
+		    margin: 1px 0px 1px 1px;
+		    background-color: transparent;
+		    font-size: 12px;
+		    line-height: 20px;
+		    outline: none;
+		}
+		
+		#Main{
+			width: 800px;
+			height:320px;
+			margin: 200px auto 100px auto;
+		}
+		
+		#UserName{
+			font-size: 30px;
+			color: white;
+		}
+				
+		#Bottom{
+			margin: 0px auto 0px auto;
+		    width: 920px;
+		    padding: 20px 0px 20px 0px;
+		    font-size: 12px;
+		}
+	</style>
+	</head>
+
+	<body>
+	
+	<div id="Main">
+		<table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr>
+				<td width="48" valign="top"><a href="http://www.imzh.me"><img width = "48" src="/static/image/back.png"></a></td>
+				<td width="30" valign="top"></td>
+                <td width="48" valign="top"><img src="/static/image/door.png"></td>
+                <td width="20" valign="top"></td>
+                <td width="auto" align="left" valign="top" >
+	
+					<span id="UserName" valign="top">You! Explorer</span>
+	
+					 <form onsubmit="Goto()">
+	
+						<div style="width: 300px; height: 28px; background-image: url('/static/image/inputBox.png'); background-repeat: no-repeat; display: inline-block;">
+							<input type="password" maxlength="80" name="key" id="nav-keyword" value="" />
+						</div>
+	
+					</form>
+                </td>
+            </tr>
+        </table>
+	</div>
+	
+	</body>
+
+</htmk>
