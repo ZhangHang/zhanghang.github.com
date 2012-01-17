@@ -1,0 +1,32 @@
+---
+layout: post
+title: Bada Form Manager
+category: dev
+---
+最近在接触移动应用方面的开发，入门没多久，随着深入，开始有了一点思考。
+
+“Form 切换”是每个移动软件开发者要面对的问题，如果这里实现的好了，心情会好很多。
+
+h3. 曾经的实现
+
+<image src="/image/bada_form_old.png">  
+
+原理很简单，每个 Form 负责切换到相关 Form, 处理创建 Form、删除Form、传递参数给 Form的任务，逻辑很复杂，而且造成非常多的重复代码，浪费时间。
+当 Form 种类，数量变多时，那就是梦魇。这不是一个好方法。
+
+
+h3. 更好的实现
+
+一个更好的办法？单独的 Form Manager 处理所有切换请求，
+
+<image src="/image/bada_form_new.png">
+
+它具有:
+
+* 方便的切换
+* 自动清理不用的 Form
+* 记录点击 Form 的历史
+
+也就是说 FormMgr 会记录 Form 被创建的顺序。自动返回上一个 Form 并删除子 Form。
+
+Form 被创建的顺序放堆栈中来实现记录顺序的功能。
