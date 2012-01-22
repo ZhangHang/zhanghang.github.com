@@ -36,13 +36,12 @@
 						break;
 				}
 				
-				if(index == keyMD5.length){
-					document.getElementById("WPNotify").style.display="display";
-		           $(".notify").slideDown("slow");
-				}else{
+				if(index != keyMD5.length){
 					pURL += MD5(keyValueMD5+keyValueMD5+"Welcome");	
 					pURL += ".html"
 					open(pURL);
+				}else{
+					// TODO: Add Notify
 				}
 									
 			}
@@ -95,7 +94,7 @@
 			color:white;
 			width:200px;
 			height:200px;
-			font-size:120px;
+			font-size:100px;
 			margin: 0px 50px 0 140px;
 		}
 		
