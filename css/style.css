@@ -35,12 +35,15 @@ html {
 	overflow-y:scroll;
 }
 body {
-	-moz-background-size:100% auto;
-	background-attachment:fixed;
+	min-height: 740px;
+	
 	background-color:#666;
-	background-position:center center;
+    background: -webkit-radial-gradient(rgb(230, 230, 230), #666);
+    background:    -moz-radial-gradient(rgb(230, 230, 230), #666);
+    background:      -o-radial-gradient(rgb(230, 230, 230), #666);
+    background:         radial-gradient(rgb(230, 230, 230), #666);
+
 	font-family:"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
-/*	font-family: 'lucida grande', "Hiragino Kaku Gothic","ヒラギノ角ゴ Pro W3", Arial, sans-serif;*/
 }
 h2, h3, h4, h5, h6 {
 	color:#333333;
@@ -75,10 +78,16 @@ h1 a:hover {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.0);
 }
 div#wrapper {
+	
+	box-shadow: 0 6px 6px 6px #888;
+	-moz-box-shadow: 0 6px 6px 6px #888;
+	-webkit-box-shadow: 0 6px 6px 6px #888;
+	
 	-moz-border-radius:5px 5px 5px 5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 	-moz-box-shadow:0 1px 0 #FFFFFF;
+	
 	background-color:#EEEEEE;
 	background-image:url("/static/image/backgroundPattern.png");
 	color:#222222;
@@ -366,6 +375,7 @@ span.balloon {
 	border-radius:5px;
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.10);
 }
+
 
 #logo {
 	width:740px;
