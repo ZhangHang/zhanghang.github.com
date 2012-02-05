@@ -43,7 +43,7 @@ body {
     background:      -o-radial-gradient(rgb(230, 230, 230), #666);
     background:         radial-gradient(rgb(230, 230, 230), #666);
 
-	font-family:"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family:'Play',"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 h2, h3, h4, h5, h6 {
 	color:#333333;
