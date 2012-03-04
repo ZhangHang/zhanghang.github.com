@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 新的入口
-category: life
+category: dev
 ---
 刚刚放假，趁着一切都还没有开始，我为这里修建了一个新的入口<a href="/entrance.html"><strong> → </strong></a>。
 
