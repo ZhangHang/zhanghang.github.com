@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 做 7 天阿米什人
+title: 做七天阿米什人
 category: life
 ---
 
