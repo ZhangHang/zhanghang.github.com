@@ -6,6 +6,6 @@ category: doodle
 
 h3. 
 
-<img src="/Static/doodle/face.PNG" width=700>
+<img src="/doodle/face.PNG" width=700>
 
 h3. 
