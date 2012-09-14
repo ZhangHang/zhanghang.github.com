@@ -37,11 +37,11 @@ html {
 body {
 	min-height: 740px;
 	
-	background-color:#666;
-    background: -webkit-radial-gradient(rgb(230, 230, 230), #666);
-    background:    -moz-radial-gradient(rgb(230, 230, 230), #666);
-    background:      -o-radial-gradient(rgb(230, 230, 230), #666);
-    background:         radial-gradient(rgb(230, 230, 230), #666);
+	background-color:#333;
+    background: -webkit-radial-gradient(rgb(230, 230, 230), #333);
+    background:    -moz-radial-gradient(rgb(230, 230, 230), #333);
+    background:      -o-radial-gradient(rgb(230, 230, 230), #333);
+    background:         radial-gradient(rgb(230, 230, 230), #333);
 
 	font-family:'Play',"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
 	
@@ -80,9 +80,9 @@ h1 a:hover {
 }
 div#wrapper {
 	
-	box-shadow: 0 6px 6px 6px #888;
-	-moz-box-shadow: 0 6px 6px 6px #888;
-	-webkit-box-shadow: 0 6px 6px 6px #888;
+	box-shadow: 0 6px 6px 6px #666;
+	-moz-box-shadow: 0 6px 6px 6px #666;
+	-webkit-box-shadow: 0 6px 6px 6px #666;
 	
 	-moz-border-radius:5px 5px 5px 5px;
 	-webkit-border-radius:5px;
