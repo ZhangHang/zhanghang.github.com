@@ -6,6 +6,6 @@ category: doodle
 
 h3. 
 
-<img src="/doodle/mouse.JPG" width=700>
+<img src="/doodle/mouse.PNG" width=700>
 
 h3. 
