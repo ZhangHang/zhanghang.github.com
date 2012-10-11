@@ -11,7 +11,7 @@ category: life
 
 
 <pre>
-	Rest in Peace Steve.
+Rest in Peace Steve.
 </pre>
 
 <img src="/image/t_hero.png"/>

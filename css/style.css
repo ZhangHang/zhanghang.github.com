@@ -37,11 +37,7 @@ html {
 body {
 	min-height: 740px;
 	
-	background-color:#333;
-    background: -webkit-radial-gradient(rgb(230, 230, 230), #333);
-    background:    -moz-radial-gradient(rgb(230, 230, 230), #333);
-    background:      -o-radial-gradient(rgb(230, 230, 230), #333);
-    background:         radial-gradient(rgb(230, 230, 230), #333);
+	background-color:#FFFFFF;
 
 	font-family:'Play',"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
 	
@@ -53,10 +49,6 @@ p, h2, h3, h4, h5, h6, ul {
 	margin:0;
 }
 
-h3{
-	border-top: 1px dashed #AAA;
-	border-bottom: 1px dashed #AAA;
-}
 a {
 	color:#000000;
 	text-decoration:none;
@@ -79,18 +71,6 @@ h1 a:hover {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.0);
 }
 div#wrapper {
-	
-	box-shadow: 0 6px 6px 6px #666;
-	-moz-box-shadow: 0 6px 6px 6px #666;
-	-webkit-box-shadow: 0 6px 6px 6px #666;
-	
-	-moz-border-radius:5px 5px 5px 5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	-moz-box-shadow:0 1px 0 #FFFFFF;
-	
-	background-color:#EEEEEE;
-	background-image:url("/static/image/backgroundPattern.png");
 	color:#222222;
 	font-size:14px;
 	line-height:190%;
@@ -213,8 +193,11 @@ div#content li ul li {
 .index h2 {
 	margin-bottom:50px;
 }
+#content h2 {
+	border-bottom: 1px solid #AAA;
+}
+
 .cnt h3 {
-	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.10);
 	font-size:25px;
 	margin:20px -20px;
 	padding:10px 20px;
@@ -250,11 +233,10 @@ pre {
 	background-color:#222222;
 	color:#FFFFFF;
 	font-size:13px;
-	margin:0 0 0 -40px;
+
 	padding:20px;
 	text-shadow:0 1px 0 #000000;
 	white-space:pre-wrap;
-	width:740px;
 	word-wrap:break-word;
 }
 div.notice {
@@ -374,7 +356,7 @@ span.balloon {
 	-moz-border-radius:5px;
 	-webki-border-radius:5px;
 	border-radius:5px;
-	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.10);
+
 }
 
 
@@ -386,7 +368,7 @@ span.balloon {
 #logo h1 a{
 	font-weight:bold;
 	font-size:35px;
-	color:#fff;
+	color:#000000;
 	letter-spacing:3px;
 }
 
