@@ -6,7 +6,7 @@ category: doodle
 
 大三了，这学期有一门完全翘不了的课叫“金工实习”，于是很少去公司转悠（每周一次）。不过有好有坏，有门讲操作系统的课，课程和老师都很有意思，我和几个同学一个小组跟着 "MIT 6.828 Operating System":http://pdos.csail.mit.edu/6.828/2012/ 一起，边学原理边写操作系统。
 
-<pre> 
+<pre>
 6.828 teaches the fundamentals of engineering operating systems. You will study, in detail, virtual memory, kernel and user mode, system calls, threads, context switches, interrupts, interprocess communication, coordination of concurrent activities, and the interface between software and hardware. Most importantly, you will study the interactions between these concepts, and how to manage the complexity introduced by the interactions.
 </pre>
 
@@ -22,3 +22,5 @@ category: doodle
 大概看了一下，从汇编到寄存器，从内存管理到分页策略啊什么的都要涉及。
 
 每个实验都涉及大量知识，我大二这一整年在公司没好好学汇编和计算机组成原理，准备知识上差一大截，借这个机会正好给补上。
+
+实验会用到 Git，于是我把整个实验放到了 "Github":http://github.com/ZhangHang/JOS_2012 上，回顾比较方便。
