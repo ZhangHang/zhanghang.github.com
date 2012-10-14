@@ -8,13 +8,14 @@ h3. Part 1: PC BootStrap
 
 h4. Exercise 1
 
-Familiarize yourself with the assembly language materials available on the 6.828 reference page. You don't have to read them now, but you'll almost certainly want to refer to some of this material when reading and writing x86 assembly.
-We do recommend reading the section "The Syntax" in Brennan's Guide to Inline Assembly. It gives a good (and quite brief) description of the AT&T assembly syntax we'll be using with the GNU assembler in JOS.
+Familiarize yourself with the assembly language materials available on "the 6.828 reference page":http://pdos.csail.mit.edu/6.828/2012/reference.html . You don't have to read them now, but you'll almost certainly want to refer to some of this material when reading and writing x86 assembly.
+
+We do recommend reading the section "The Syntax" in "Brennan's Guide to Inline Assembly":http://www.delorie.com/djgpp/doc/brennan/brennan_att_inline_djgpp.html . It gives a good (and quite brief) description of the AT&T assembly syntax we'll be using with the GNU assembler in JOS.
 
 
 h4. Exercise 2
 
-Use GDB's si (Step Instruction) command to trace into the ROM BIOS for a few more instructions, and try to guess what it might be doing.You might want to look at Phil Storrs I/O Ports Description, as well as other materials on the 6.828 reference materials page. No need to figure out all the details - just the general idea of what the BIOS is doing first.
+Use GDB's si (Step Instruction) command to trace into the ROM BIOS for a few more instructions, and try to guess what it might be doing.You might want to look at "Phil Storrs I/O Ports Description":http://web.archive.org/web/20040404164813/members.iweb.net.au/~pstorr/pcbook/book2/book2.htm , as well as other materials on the "6.828 reference materials page":http://pdos.csail.mit.edu/6.828/2012/reference.html . No need to figure out all the details - just the general idea of what the BIOS is doing first.
 
 
 h3. Part 2: The Boot Loader
@@ -22,7 +23,9 @@ h3. Part 2: The Boot Loader
 h4. Exercise 3
 
 Take a look at the lab tools guide, especially the section on GDB commands. Even if you're familiar with GDB, this includes some esoteric GDB commands that are useful for OS work.
+
 Set a breakpoint at address 0x7c00, which is where the boot sector will be loaded. Continue execution until that breakpoint. Trace through the code in boot/boot.S, using the source code and the disassembly file obj/boot/boot.asm to keep track of where you are. Also use the x/i command in GDB to disassemble sequences of instructions in the boot loader, and compare the original boot loader source code with both the disassembly in obj/boot/boot.asm and GDB.
+
 Trace into bootmain() in boot/main.c, and then into readsect(). Identify the exact assembly instructions that correspond to each of the statements in readsect(). Trace through the rest of readsect() and back out into bootmain(), and identify the begin and end of the for loop that reads the remaining sectors of the kernel from the disk. Find out what code will run when the loop is finished, set a breakpoint there, and continue to that breakpoint. Then step through the remainder of the boot loader.
 
 ---
@@ -223,8 +226,6 @@ bad:
 		/* do nothing */;
 }
 {% endhighlight %}
-
-还没弄懂。
 
 ---
 更新中
