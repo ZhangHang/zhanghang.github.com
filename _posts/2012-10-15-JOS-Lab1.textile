@@ -1,0 +1,230 @@
+---
+layout: post
+title: JOS 实验一
+category: dev
+---
+
+h3. Part 1: PC BootStrap
+
+h4. Exercise 1
+
+Familiarize yourself with the assembly language materials available on the 6.828 reference page. You don't have to read them now, but you'll almost certainly want to refer to some of this material when reading and writing x86 assembly.
+We do recommend reading the section "The Syntax" in Brennan's Guide to Inline Assembly. It gives a good (and quite brief) description of the AT&T assembly syntax we'll be using with the GNU assembler in JOS.
+
+
+h4. Exercise 2
+
+Use GDB's si (Step Instruction) command to trace into the ROM BIOS for a few more instructions, and try to guess what it might be doing.You might want to look at Phil Storrs I/O Ports Description, as well as other materials on the 6.828 reference materials page. No need to figure out all the details - just the general idea of what the BIOS is doing first.
+
+
+h3. Part 2: The Boot Loader
+
+h4. Exercise 3
+
+Take a look at the lab tools guide, especially the section on GDB commands. Even if you're familiar with GDB, this includes some esoteric GDB commands that are useful for OS work.
+Set a breakpoint at address 0x7c00, which is where the boot sector will be loaded. Continue execution until that breakpoint. Trace through the code in boot/boot.S, using the source code and the disassembly file obj/boot/boot.asm to keep track of where you are. Also use the x/i command in GDB to disassemble sequences of instructions in the boot loader, and compare the original boot loader source code with both the disassembly in obj/boot/boot.asm and GDB.
+Trace into bootmain() in boot/main.c, and then into readsect(). Identify the exact assembly instructions that correspond to each of the statements in readsect(). Trace through the rest of readsect() and back out into bootmain(), and identify the begin and end of the for loop that reads the remaining sectors of the kernel from the disk. Find out what code will run when the loop is finished, set a breakpoint there, and continue to that breakpoint. Then step through the remainder of the boot loader.
+
+---
+在一切开始之前，我们要弄懂如何调用 gdb 调试运行在 qemu 虚拟的计算机中的系统。
+
+资料上说运行
+
+<pre>
+make qemu-gdb
+</pre>
+
+那么 make 是什么？为什么 qemu-gdb 作为参数就可以调试了？
+
+<pre>
+Make gets its knowledge of how to build your program from a file called the makefile, which lists each of the non-source files and how to compute it from other files. When you write a program, you should write a makefile for it, so that it is possible to use Make to build and install the program
+</pre>
+
+make 是个按照规则执行批处理操作的工具。
+
+JOS 中规则文件叫 GNUmakefile，其中定义了编译、调用虚拟机、调试相关的规则，下面列出对我们这次实验有用的参数
+
+* make ``编译 JOS``
+* make qemu ``调用配置 qemu 载入 JOS 镜像``
+* make qemu-gdb ``调用配置 qemu 载入 JOS 镜像并连接 GDB 供调试``
+
+问题弄懂后开始实践，切换到JOS源代码目录
+
+<pre>
+make qemu-gdb
+</pre>
+
+打开另一个终端，运行 gdb
+
+<img src="/Static/Image/jos_gdb.png" maxwidth=700>
+
+然后一个新终端，运行 gdb 就可以开始调试了，我们可以运行很多命令，比如：
+
+在 0x7c00 处下断点
+
+<pre>
+b *0x7c00
+</pre>
+
+继续运行
+
+<pre>
+c
+</pre>
+
+下一步
+
+<pre>
+si
+</pre>
+
+---
+
+Be able to answer the following questions:
+
+* At what point does the processor start executing 32-bit code? What exactly causes the switch from 16- to 32-bit mode?
+* What is the last instruction of the boot loader executed, and what is the first instruction of the kernel it just loaded?
+* Where is the first instruction of the kernel?
+* How does the boot loader decide how many sectors it must read in order to fetch the entire kernel from disk? Where does it find this information?
+
+
+1. CPU 中有个寄存器叫 CR0，它 "每一位都是个标示符":http://en.wikipedia.org/wiki/Control_register#CR0 ，其中第 0 位用来标识 CPU 是运行在实时模式还是保护模式。
+所以从头开始找到修改 CRO 第 0 位的代码也就找到了使 CPU 切换到 32 位的代码。
+
+计算机在启动后会调用 BIOS，它做完基础的系统初始化工作，比如检查内存容量后会把启动分区第一扇区的 bootloader 读到内存 0x7c00 处，交给 bootloader 控制权，执行它。
+
+JOS 的 bootloader 由 /boot/boot.s 和 /boot/mian.c 两部分组成，当执行 bootloader 时首先运行的是 boot.s ，所以我们从这里开始看。
+
+找到
+
+
+{% highlight gas %}
+# Switch from real to protected mode, using a bootstrap GDT
+# and segment translation that makes virtual addresses 
+# identical to their physical addresses, so that the 
+# effective memory map does not change during the switch.
+lgdt    gdtdesc
+movl    %cr0, %eax
+orl     $CR0_PE_ON, %eax
+movl    %eax, %cr0
+
+# Jump to next instruction, but in 32-bit code segment.
+# Switches processor into 32-bit mode.
+ljmp    $PROT_MODE_CSEG, $protcseg
+{% endhighlight %}
+
+往前看到
+
+{% highlight gas %}
+.set CR0_PE_ON,      0x1         # protected mode enable flag
+{% endhighlight %}
+
+这就是把 CR0 的 0 位改为 1 ，使 CPU 切换到 32 位保护模式的地方。
+
+2.阅读 boot.s 发现在最后它去运行了 main.c 中的 bootmain
+
+{% highlight gas %}
+# Set up the stack pointer and call into C.
+movl    $start, %esp
+call bootmain
+{% endhighlight %}
+
+bootmain，最后一行代码即 bootloader 最后一行代码
+
+
+{% highlight c %}
+// call the entry point from the ELF header
+// note: does not return!
+((void (*)(void)) (ELFHDR->e_entry))();
+{% endhighlight %}
+
+整个 bootmain 做的事情就是把 ELF 格式的内核镜像载入内存，然后去叫内核的入口，ELF 格式的详细信息前面的资料有。
+
+这时我们可以说 bootloader 最后一行代码就是去执行 e_entry 启动内核。
+
+那么内核第一句执行的是什么？
+先看 main.c 
+
+{% highlight c %}
+#define ELFHDR		((struct Elf *) 0x10000) // scratch space
+{% endhighlight %}
+
+内核从内存 0x10000 开始。
+
+但
+
+<pre>
+objdump -x obj/kern/kernel
+</pre>
+
+看到
+
+<pre>
+SYMBOL TABLEL
+f0100000 l     d .text 00000000 .text
+f010000c g       .text 00000000 entry
+</pre>
+
+0xf01000c - (0xf0100000 - 0x00100000) = 0x0010000c 就是内核入口地址。
+
+<img src="/Static/Image/jos_kernel_entry.png" maxwidth=700>
+
+内核执行的第一句代码是
+
+{% highlight gas %}
+movw    $0x1234, 0x472
+{% endhighlight %}
+
+
+3. 内核第一句话在 obj/kern/Kernel.asm 中
+
+{% highlight gas %}
+entry:
+        movw    $0x1234, 0x472     #warm boot
+{% endhighlight %}
+
+4.这个要再去看 bootmian
+
+{% highlight c %}
+#define SECTSIZE	512
+#define ELFHDR		((struct Elf *) 0x10000) // scratch space
+
+void readsect(void*, uint32_t);
+void readseg(uint32_t, uint32_t, uint32_t);
+
+void
+bootmain(void)
+{
+	struct Proghdr *ph, *eph;
+
+	// read 1st page off disk
+	readseg((uint32_t) ELFHDR, SECTSIZE*8, 0);
+
+	// is this a valid ELF?
+	if (ELFHDR->e_magic != ELF_MAGIC)
+		goto bad;
+
+	// load each program segment (ignores ph flags)
+	ph = (struct Proghdr *) ((uint8_t *) ELFHDR + ELFHDR->e_phoff);
+	eph = ph + ELFHDR->e_phnum;
+	for (; ph < eph; ph++)
+		// p_pa is the load address of this segment (as well
+		// as the physical address)
+		readseg(ph->p_pa, ph->p_memsz, ph->p_offset);
+
+	// call the entry point from the ELF header
+	// note: does not return!
+	((void (*)(void)) (ELFHDR->e_entry))();
+
+bad:
+	outw(0x8A00, 0x8A00);
+	outw(0x8A00, 0x8E00);
+	while (1)
+		/* do nothing */;
+}
+{% endhighlight %}
+
+还没弄懂。
+
+---
+更新中
