@@ -59,7 +59,7 @@ make qemu-gdb
 
 打开另一个终端，运行 gdb
 
-<img src="/static/image/jos_gdb.png" maxwidth=700>
+<img src="/image/jos/jos_gdb.png" maxwidth=700>
 
 然后一个新终端，运行 gdb 就可以开始调试了，我们可以运行很多命令，比如：
 
@@ -169,7 +169,7 @@ f010000c g       .text 00000000 entry
 
 0xf01000c - (0xf0100000 - 0x00100000) = 0x0010000c 就是内核入口地址。
 
-<img src="/static/image/jos_kernel_entry.png" maxwidth=700>
+<img src="/image/jos/jos_kernel_entry.png" maxwidth=700>
 
 内核执行的第一句代码是
 
@@ -185,46 +185,237 @@ entry:
         movw    $0x1234, 0x472     #warm boot
 {% endhighlight %}
 
-4.这个要再去看 bootmian
+4.这个操作系统老实说 ELF 这种格式决定了所有关于 sector 的信息都存在文件头了，bootmain 中把读入的头转换成了 Proghdr，里面就是 sector 的信息，具体以后添加。
+
+h4. Exercise 4
+
+Read about programming with pointers in C. The best reference for the C language is The C Programming Language by Brian Kernighan and Dennis Ritchie (known as 'K&R'). We recommend that students purchase this book (here is an "Amazon Link":http://www.amazon.com/C-Programming-Language-2nd/dp/0131103628/sr=8-1/qid=1157812738/ref=pd_bbs_1/104-1502762-1803102?ie=UTF8&s=books ) or find one of "MIT's 7 copies":http://library.mit.edu/F/AI9Y4SJ2L5ELEE2TAQUAAR44XV5RTTQHE47P9MKP5GQDLR9A8X-10422?func=item-global&doc_library=MIT01&doc_number=000355242&year=&volume=&sub_library= .
+
+Read 5.1 (Pointers and Addresses) through 5.5 (Character Pointers and Functions) in K&R. Then download the code for "pointers.c":http://pdos.csail.mit.edu/6.828/2012/labs/lab1/pointers.c , run it, and make sure you understand where all of the printed values come from. In particular, make sure you understand where the pointer addresses in lines 1 and 6 come from, how all the values in lines 2 through 4 get there, and why the values printed in line 5 are seemingly corrupted.
+
+There are other references on pointers in C, though not as strongly recommended. "A tutorial by Ted Jensen":http://pdos.csail.mit.edu/6.828/2012/readings/pointers.pdf that cites K&R heavily is available in the course readings.
+
+Warning: Unless you are already thoroughly versed in C, do not skip or even skim this reading exercise. If you do not really understand pointers in C, you will suffer untold pain and misery in subsequent labs, and then eventually come to understand them the hard way. Trust us; you don't want to find out what "the hard way" is.
+
 
 {% highlight c %}
-#define SECTSIZE	512
-#define ELFHDR		((struct Elf *) 0x10000) // scratch space
-
-void readsect(void*, uint32_t);
-void readseg(uint32_t, uint32_t, uint32_t);
+#include <stdio.h>
+#include <stdlib.h>
 
 void
-bootmain(void)
+f(void)
 {
-	struct Proghdr *ph, *eph;
+    int a[4];
+    int *b = malloc(16);
+    int *c;
+    int i;
 
-	// read 1st page off disk
-	readseg((uint32_t) ELFHDR, SECTSIZE*8, 0);
+    printf("1: a = %p, b = %p, c = %p\n", a, b, c);
 
-	// is this a valid ELF?
-	if (ELFHDR->e_magic != ELF_MAGIC)
-		goto bad;
+    c = a;
+    for (i = 0; i < 4; i++)
+	a[i] = 100 + i;
+    c[0] = 200;
+    printf("2: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n",
+	   a[0], a[1], a[2], a[3]);
 
-	// load each program segment (ignores ph flags)
-	ph = (struct Proghdr *) ((uint8_t *) ELFHDR + ELFHDR->e_phoff);
-	eph = ph + ELFHDR->e_phnum;
-	for (; ph < eph; ph++)
-		// p_pa is the load address of this segment (as well
-		// as the physical address)
-		readseg(ph->p_pa, ph->p_memsz, ph->p_offset);
+    c[1] = 300;
+    *(c + 2) = 301;
+    3[c] = 302;
+    printf("3: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n",
+	   a[0], a[1], a[2], a[3]);
 
-	// call the entry point from the ELF header
-	// note: does not return!
-	((void (*)(void)) (ELFHDR->e_entry))();
+    c = c + 1;
+    *c = 400;
+    printf("4: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n",
+	   a[0], a[1], a[2], a[3]);
 
-bad:
-	outw(0x8A00, 0x8A00);
-	outw(0x8A00, 0x8E00);
-	while (1)
-		/* do nothing */;
+    c = (int *) ((char *) c + 1);
+    *c = 500;
+    printf("5: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n",
+	   a[0], a[1], a[2], a[3]);
+
+    b = (int *) a + 1;
+    c = (int *) ((char *) a + 1);
+    printf("6: a = %p, b = %p, c = %p\n", a, b, c);
+}
+
+int
+main(int ac, char **av)
+{
+    f();
+    return 0;
 }
 {% endhighlight %}
+
+输出结果为
+
+<pre>
+1: a = 0x7fff5e0fe4c0, b = 0x7fca114000e0, c = 0x7fff61701740
+2: a[ 0 ] = 200, a[ 1 ] = 101, a[ 2 ] = 102, a[ 3 ] = 103
+3: a[ 0 ] = 200, a[ 1 ] = 300, a[ 2 ] = 301, a[ 3 ] = 302
+4: a[ 0 ] = 200, a[ 1 ] = 400, a[ 2 ] = 301, a[ 3 ] = 302
+5: a[ 0 ] = 200, a[ 1 ] = 128144, a[ 2 ] = 256, a[ 3 ] = 302
+6: a = 0x7fff5e0fe4c0, b = 0x7fff5e0fe4c4, c = 0x7fff5e0fe4c1
+</pre>
+
+其中
+
+{% highlight c %}
+c = (int *) ((char *) a + 1);
+{% endhighlight %}
+
+每个 int 占用 4 字节，而 char 占 1 字节，所以 （char *）a + 1 的结果为 a 后的 1 字节，再（int *）后，c 为指向由 a[ 0 ] 后 3 字节与 a[ 1 ] 组成的 int 的指针。
+
+观察
+
+<pre>
+6: a = 0x7fff5e0fe4c0, b = 0x7fff5e0fe4c4, c = 0x7fff5e0fe4c1
+</pre>
+
+结论得证。
+
+h4. Exercise 5
+
+Trace through the first few instructions of the boot loader again and identify the first instruction that would "break" or otherwise do the wrong thing if you were to get the boot loader's link address wrong. Then change the link address in boot/Makefrag to something wrong, run make clean, recompile the lab with make, and trace into the boot loader again to see what happens. Don't forget to change the link address back and make clean again afterward!
+
+h4. Exercise 6
+
+We can examine memory using GDB's x command. The GDB manual has full details, but for now, it is enough to know that the command *x/Nx ADDR* prints N words of memory at *ADDR* . (Note that both 'x's in the command are lowercase.) Warning: The size of a word is not a universal standard. In GNU assembly, a word is two bytes (the 'w' in xorw, which stands for word, means 2 bytes).
+
+Reset the machine (exit QEMU/GDB and start them again). Examine the 8 words of memory at 0x00100000 at the point the BIOS enters the boot loader, and then again at the point the boot loader enters the kernel. Why are they different? What is there at the second breakpoint? (You do not really need to use QEMU to answer this question. Just think.)
+
+
+BIOS 刚进入 boot loader 时，内存里只有 从 0x7c00 开始的 boot loader，它有（待填）大，0x00100000 空，boot loader 执行完把内核载入到从 0x10000 开始的地方，0x00100000 区域被用来放内核了，里面内容不再为空。Easy？
+
+h3. Part 3: The Kernel
+
+h4. Exercise 7
+
+Use QEMU and GDB to trace into the JOS kernel and stop at the movl %eax, %cr0. Examine memory at 0x00100000 and at 0xf0100000. Now, single step over that instruction using the stepi GDB command. Again, examine memory at 0x00100000 and at 0xf0100000. Make sure you understand what just happened.
+
+What is the first instruction after the new mapping is established that would fail to work properly if the mapping weren't in place? Comment out the movl %eax, %cr0 in kern/entry.S, trace into it, and see if you were right.
+
+{% highlight gas %}
+%eax, %cr0 
+{% endhighlight %}
+
+后启用了虚拟地址转换，然后 0xf0100000 就被映射成 0x0010000，所以都一样了。
+
+h4. Exercise 8
+
+We have omitted a small fragment of code - the code necessary to print octal numbers using patterns of the form "%o". Find and fill in this code fragment.
+
+终于开始要写代码了，第一个问题非常简单，找到 printfmt.c 中的 vprintfmt 函数
+
+{% highlight c %}
+void vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
+{% endhighlight %}
+
+里面处理了各种参数，很好玩的是，这个函数的实现用了 goto 语句，找到 case "o" ，这就是 8 进制相关的代码，照猫画虎，改成:
+
+{% highlight c %}
+case 'o':
+	num = getuint(&ap, lflag);
+	base = 8;
+	goto number;
+{% endhighlight %}
+
+好了，我们的 print 函数升级了，重新运行 JOS，不开 debug，输出如下：
+
+<img src="/image/jos/print_o.png" maxwidth=700>
+
+<pre>
+6828 decimal is 15254 octal!
+</pre>
+
+Be able to answer the following questions:
+
+1. Explain the interface between printf.c and console.c. Specifically, what function does console.c export? How is this function used by printf.c?
+
+printf.c 中的
+
+{% highlight c %}
+static void
+putch(int ch, int *cnt)
+{
+	cputchar(ch);
+	*cnt++;
+}
+{% endhighlight %}
+
+调用了 console.c 中的 putch，它的功能就是和硬件打交道打印一个字符
+
+{% highlight c %}
+// output a character to the console
+static void
+cons_putc(int c)
+{
+	serial_putc(c);
+	lpt_putc(c);
+	cga_putc(c);
+}
+{% endhighlight %}
+
+2. Explain the following from console.c:
+
+{% highlight c %}
+if (crt_pos >= CRT_SIZE) {
+    int i;
+    memcpy(crt_buf, crt_buf + CRT_COLS, (CRT_SIZE - CRT_COLS) * sizeof(uint16_t));
+    for (i = CRT_SIZE - CRT_COLS; i < CRT_SIZE; i++)
+        crt_buf[i] = 0x0700 | ' ';
+        crt_pos -= CRT_COLS;
+}
+{% endhighlight %}
+
+3. For the following questions you might wish to consult the notes for Lecture 2. These notes cover GCC's calling convention on the x86.
+Trace the execution of the following code step-by-step:
+
+{% highlight c %}
+int x = 1, y = 3, z = 4;
+cprintf("x %d, y %x, z %d\n", x, y, z);
+{% endhighlight %}
+
+* In the call to cprintf(), to what does fmt point? To what does ap point?
+* List (in order of execution) each call to cons_putc, va_arg, and vcprintf. For cons_putc, list its argument as well. For va_arg, list what ap points to before and after the call. For vcprintf list the values of its two arguments.
+
+fmt 指向 "x %d, y %x, z %d\n" 的头，也就是" " "，ap指向 xyz 所组成内存区域的头， 也就是 x。
+
+4. Run the following code.
+
+{% highlight c %}
+unsigned int i = 0x00646c72;
+cprintf("H%x Wo%s", 57616, &i);
+{% endhighlight %}
+
+What is the output? Explain how this output is arrived at in the step-by-step manner of the previous exercise. Here's an ASCII table that maps bytes to characters.
+The output depends on that fact that the x86 is little-endian. If the x86 were instead big-endian what would you set i to in order to yield the same output? Would you need to change 57616 to a different value?
+
+Here's a description of little- and big-endian and a more whimsical description.
+
+<pre>
+d     100 0144 0x64
+l     108 0154 0x6c
+r     114 0162 0x72
+(nul)   0 0000 0x00
+</pre>
+
+5. In the following code, what is going to be printed after 'y='? (note: the answer is not a specific value.) Why does this happen?
+
+{% highlight c %}
+cprintf("x=%d y=%d", 3);
+{% endhighlight %}
+
+当 printfmt 的 ap 去找 y 的时候，那块内存区域没有被正确赋值，所以内容不是我们想要的。
+
+6. Let's say that GCC changed its calling convention so that it pushed arguments on the stack in declaration order, so that the last argument is pushed last. How would you have to change cprintf or its interface so that it would still be possible to pass it a variable number of arguments?
+
+h3. The Stack
+
+h4. Exercise 9
+
+Determine where the kernel initializes its stack, and exactly where in memory its stack is located. How does the kernel reserve space for its stack? And at which "end" of this reserved area is the stack pointer initialized to point to?
 
 ---
 更新中
