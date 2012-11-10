@@ -394,12 +394,28 @@ The output depends on that fact that the x86 is little-endian. If the x86 were i
 
 Here's a description of little- and big-endian and a more whimsical description.
 
+得到打印结果是
+
+<pre>
+He110 World!
+</pre>
+
+根据 ASSIC 表查到 0x00646c72 对应：
+
 <pre>
 d     100 0144 0x64
 l     108 0154 0x6c
 r     114 0162 0x72
 (nul)   0 0000 0x00
 </pre>
+
+57616 十六进制对应:
+
+<pre>
+e11
+</pre>
+
+看对应结果知道我们的机器是 big-endian.
 
 5. In the following code, what is going to be printed after 'y='? (note: the answer is not a specific value.) Why does this happen?
 
@@ -417,5 +433,138 @@ h4. Exercise 9
 
 Determine where the kernel initializes its stack, and exactly where in memory its stack is located. How does the kernel reserve space for its stack? And at which "end" of this reserved area is the stack pointer initialized to point to?
 
----
-更新中
+entry.S 中 stack 初值被设置为空指针 0x0
+
+{% highlight gas %}
+# Clear the frame pointer register (EBP)
+# so that once we get into debugging C code,
+# stack backtraces will be terminated properly.
+movl    $0x0,%ebp           # nuke frame pointer
+
+# Set the stack pointer
+movl    $(bootstacktop),%esp
+
+# now to C code
+call    i386_init
+{% endhighlight %}
+
+再看定义：
+
+{% highlight gas %}
+.data
+###################################################################
+# boot stack
+###################################################################
+    .p2align    PGSHIFT     # force page alignment
+    .globl      bootstack
+bootstack:
+    .space      KSTKSIZE
+    .globl      bootstacktop   
+bootstacktop:
+
+{% endhighlight %}
+
+stack 大小 KSTKSIZE (32KB)，栈低就是 bootstacktop。
+
+h4. Exercise 10
+
+To become familiar with the C calling conventions on the x86, find the address of the test_backtrace function in obj/kern/kernel.asm, set a breakpoint there, and examine what happens each time it gets called after the kernel starts. How many 32-bit words does each recursive nesting level of test_backtrace push on the stack, and what are those words?
+Note that, for this exercise to work properly, you should be using the patched version of QEMU available on the tools page or on Athena. Otherwise, you'll have to manually translate all breakpoint and memory addresses to linear addresses.
+
+这个在北京大学 JOS 实验一中说的很清楚了，共 32bit 被压入栈中。
+
+h4. Exercise 11
+
+Implement the backtrace function as specified above. Use the same format as in the example, since otherwise the grading script will be confused. When you think you have it working right, run make grade to see if its output conforms to what our grading script expects, and fix it if it doesn't. After you have handed in your Lab 1 code, you are welcome to change the output format of the backtrace function any way you like.
+
+h4. Exercise 12
+
+Modify your stack backtrace function to display, for each eip, the function name, source file name, and line number corresponding to that eip.
+In debuginfo_eip, where do __STAB_* come from? This question has a long answer; to help you to discover the answer, here are some things you might want to do:
+
+<pre>
+look in the file kern/kernel.ld for __STAB_*
+run i386-jos-elf-objdump -h obj/kern/kernel
+run i386-jos-elf-objdump -G obj/kern/kernel
+run i386-jos-elf-gcc -pipe -nostdinc -O2 -fno-builtin -I. -MD -Wall -Wno- format -DJOS_KERNEL -gstabs -c -S kern/init.c, and look at init.s.
+see if the bootloader loads the symbol table in memory as part of loading the kernel binary
+Complete the implementation of debuginfo_eip by inserting the call to stab_binsearch to find the line number for an address.
+Add a backtrace command to the kernel monitor, and extend your implementation of mon_backtrace to call debuginfo_eip and print a line for each stack frame of the form:
+
+K> backtrace
+Stack backtrace:
+  ebp f010ff78  eip f01008ae  args 00000001 f010ff8c 00000000 f0110580 00000000
+         kern/monitor.c:143: monitor+106
+  ebp f010ffd8  eip f0100193  args 00000000 00001aac 00000660 00000000 00000000
+         kern/init.c:49: i386_init+59
+  ebp f010fff8  eip f010003d  args 00000000 00000000 0000ffff 10cf9a00 0000ffff
+         kern/entry.S:70: <unknown>+0
+K>
+</pre>
+
+Each line gives the file name and line within that file of the stack frame's eip, followed by the name of the function and the offset of the eip from the first instruction of the function (e.g., monitor+106 means the return eip is 106 bytes past the beginning of monitor).
+Be sure to print the file and function names on a separate line, to avoid confusing the grading script.
+Tip: printf format strings provide an easy, albeit obscure, way to print non-null-terminated strings like those in ST ABS tables. printf("%.*s", length, string) prints at most length characters of string. Take a look at the printf man page to find out why this works.
+You may find that some functions are missing from the backtrace. For example, you will probably see a call to monitor() but not to runcmd(). This is because the compiler in-lines some function calls. Other optimizations may cause you to see unexpected line numbers. If you get rid of the -O2 from GNUMakefile, the backtraces may make more sense (but your kernel will run more slowly).
+￼￼￼
+
+两个练习合起来一起做:
+
+eip_debuginfo 中实现查找行数的代码，具体为什么这么实现，实际上我就是按照代码注释说的逻辑翻译成代码。
+
+{% highlight c %}
+  stab_binsearch(stabs, &lline, &rline, N_SLINE, addr);
+  info.eip_line = (lline <= rline)?
+                    stabs[rrline].n_desc:
+                    -1;
+{% endhighlight %}
+￼
+
+在终端中加入 backrace 命令：
+
+{% highlight c %}
+static struct Command commands[] = {
+    { "help", "Display this list of commands", mon_help },
+    { "kerninfo", "Display information about the kernel", mon_kerninfo },
+    { "backtrace", "Display function stack one line at a time",mon_backtrace},
+};
+{% endhighlight %}
+￼
+
+弄明白 debuginfo_eip ，利用它实现 mon_backtrace：
+
+{% highlight c %}
+int
+mon_backtrace(int argc, char **argv, struct Trapframe *tf)
+{
+    uint32_t *ebp = (uint32_t*)read_ebp();
+    struct Eipdebuginfo info;
+
+    cprintf ("Stack backtrace:\n");
+    while (ebp != 0x0){
+        cprintf (" ebp %08x eip %08x args %08x %08x %08x %08x %08x\n", ebp, ebp[1]
+                 , ebp[2], ebp[3], ebp[4], ebp[5], ebp[6]);
+
+        debuginfo_eip(ebp[1],&info);    
+        cprintf ("%s:%d: %.*s+%d\n",info.eip_file
+                    ,info.eip_line
+                    ,info.eip_fn_namelen,info.eip_fn_name
+                    ,ebp[1]-info.eip_fn_addr);
+
+        ebp = (uint32_t*) ebp[0];
+    }
+￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
+    return 0;
+}
+{% endhighlight %}
+
+
+好了，这时候运行 :
+
+<pre>
+make grade
+</pre>
+
+<img src="/Image/JOS/lab1_grade.png" maxwidth=700>
+
+实验一完成。
