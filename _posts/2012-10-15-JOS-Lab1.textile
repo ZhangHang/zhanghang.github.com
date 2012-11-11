@@ -59,7 +59,7 @@ make qemu-gdb
 
 打开另一个终端，运行 gdb
 
-<img src="/jos/jos_gdb.png" maxwidth=700>
+<img src="/image/jos_gdb.png" maxwidth=700>
 
 然后一个新终端，运行 gdb 就可以开始调试了，我们可以运行很多命令，比如：
 
@@ -169,7 +169,7 @@ f010000c g       .text 00000000 entry
 
 0xf01000c - (0xf0100000 - 0x00100000) = 0x0010000c 就是内核入口地址。
 
-<img src="/jos/jos_kernel_entry.png" maxwidth=700>
+<img src="/image/jos_kernel_entry.png" maxwidth=700>
 
 内核执行的第一句代码是
 
@@ -323,7 +323,7 @@ case 'o':
 
 好了，我们的 print 函数升级了，重新运行 JOS，不开 debug，输出如下：
 
-<img src="/jos/print_o.png" maxwidth=700>
+<img src="/image/print_o.png" maxwidth=700>
 
 <pre>
 6828 decimal is 15254 octal!
@@ -565,6 +565,6 @@ mon_backtrace(int argc, char **argv, struct Trapframe *tf)
 make grade
 </pre>
 
-<img src="/JOS/lab1_grade.png" maxwidth=700>
+<img src="/image/lab1_grade.png" maxwidth=700>
 
 实验一完成。
