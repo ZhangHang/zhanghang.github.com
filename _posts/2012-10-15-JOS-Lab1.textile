@@ -514,9 +514,9 @@ eip_debuginfo 中实现查找行数的代码，具体为什么这么实现，实
 
 {% highlight c %}
   stab_binsearch(stabs, &lline, &rline, N_SLINE, addr);
-  info.eip_line = (lline <= rline)?
-                    stabs[rrline].n_desc:
-                    -1;
+  if(lline > rline)
+    return -1;
+  info.eip_line =  stabs[rline].n_desc;
 {% endhighlight %}
 ￼
 
