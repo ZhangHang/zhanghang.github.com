@@ -1,0 +1,13 @@
+---
+layout: post
+title: Mandelbrot Set
+category: life
+---
+
+ifanr "你见过的最疯狂的代码是什么样的":http://www.ifanr.com/dasheng/197540 一文中提到一段可以生成经典分形图 "Mandelbrot Set":http://en.wikipedia.org/wiki/Mandelbrot_set 的 "Python 代码":http://preshing.com/20110926/high-resolution-mandelbrot-in-obfuscated-python 。
+
+看起来很好玩，于是试着用 10 年的老 MacBook(2.26 GHz Intel Core 2 Duo ，4 GB 1333 MHz DDR3)渲染一幅分辨率 4096 X 3072 的。
+
+睡前开始，早上醒来刚好完成，花了 5 个小时，一个 37.7 MB 的 bmp，转换成 PNG 后 4.9 MB 。
+
+<img src="/image/mandelbrot_set.png" width="700">
