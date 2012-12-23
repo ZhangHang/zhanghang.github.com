@@ -1,25 +1,26 @@
 ---
 layout: nil
+title : Atom Feed
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>ZH's Log</title>
- <link href="http://www.imzh.me/atom.xml" rel="self"/>
- <link href="http://www.imzh.me/"/>
+ <title>{{ site.title }}</title>
+ <link href="{{ site.production_url }}/atom.xml" rel="self"/>
+ <link href="{{ site.production_url }}"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://www.imzh.me/</id>
+ <id>{{ site.production_url }}</id>
  <author>
-   <name>ZH</name>
-   <email>zh199111@gmail.com</email>
+   <name>{{ site.author.name }}</name>
+   <email>{{ site.author.email }}</email>
  </author>
 
- {% for post in site.posts limit:20 %}
+ {% for post in site.posts %}
  <entry>
    <title>{{ post.title }}</title>
-   <link href="http://www.imzh.me{{ post.url }}"/>
+   <link href="{{ site.production_url }}{{ post.url }}"/>
    <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>http://www.imzh.me{{ post.id }}</id>
+   <id>{{ site.production_url }}{{ post.id }}</id>
    <content type="html">{{ post.content | xml_escape }}</content>
  </entry>
  {% endfor %}

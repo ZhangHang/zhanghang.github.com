@@ -9,7 +9,7 @@ category: dev
 
 h3. 曾经的实现
 
-<image src="/image/bada_form_old.png">  
+<image src="/assets/images/bada_form_old.png">  
 
 原理很简单，每个 Form 负责切换到相关 Form, 处理创建 Form、删除Form、传递参数给 Form的任务，逻辑很复杂，而且造成非常多的重复代码，浪费时间。
 当 Form 种类，数量变多时，那就是梦魇。这不是一个好方法。
@@ -19,7 +19,7 @@ h3. 更好的实现
 
 一个更好的办法？单独的 Form Manager 处理所有切换请求，
 
-<image src="/image/bada_form_new.png">
+<image src="/assets/images/bada_form_new.png">
 
 它具有:
 

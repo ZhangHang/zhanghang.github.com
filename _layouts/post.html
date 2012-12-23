@@ -1,38 +1,5 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-	<head>
-		<meta charset="UTF-8" />
-		<title>{{ page.title }} - ZH's Log</title>
-		<link rel="stylesheet" type="text/css" href="/css/style.css" />
-		<link rel="stylesheet" type="text/css" href="/css/syntax.css" />
-		<link href='http://fonts.googleapis.com/css?family=Play:700,400' rel='stylesheet' type='text/css'>
-		<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-24590058-1']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-		</script>
-		<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-	</head>
-
-	<body>
-		<div id="logo"><h1><a href="/"></a></h1></div>
-		<div id="wrapper">
-			<div id="content">
-				<a style="float:right;margin-top:15px" ><div class="g-plusone" data-annotation="none"></div></a>
-				<h2>{{ page.title }}</h2>
-				<div class="cnt">
-					{{ content }}
-				</div>
-
-				<div style="margin-top:50px;">
-					<a href="/" style="color:rgb(153, 153, 153);	float:center;">←</a>
-				</div>			
-	</body>
-</html>
-
+---
+layout: default
+---
+{% include JB/setup %}
+{% include themes/twitter/post.html %}

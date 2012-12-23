@@ -20,7 +20,7 @@ h3. 一些高亮
 ＊ 开始用 Markdown 语法写作 <span style="color:#999">- 这节省了我很多时间 </span>
 ＊ 俯览平流层下方静止的巨大白色柱状云
 ＊ 在海拔4000米的地方见到了最美的景色，并有了缺氧体验
-<img src="/image/LuoJiShan.png" />
+<img src="/assets/assets/images/LuoJiShan.png" />
 ＊ 乘坐亚洲最长的缆车
 ＊ 结交了为乐趣而不是钱而生活的人
 ＊ 参加了一个最有趣的婚礼

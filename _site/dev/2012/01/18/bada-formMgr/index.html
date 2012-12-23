@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bada Form Manager</title>
+    
+    <meta name="author" content="ZH">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">ZH</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Bada Form Manager <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>最近在接触移动应用方面的开发，入门没多久，随着深入，开始有了一点思考。</p>
+<p>“Form 切换”是每个移动软件开发者要面对的问题，如果这里实现的好了，心情会好很多。</p>
+<h3>曾经的实现</h3>
+<image src="/assets/images/bada_form_old.png">
+<p>原理很简单，每个 Form 负责切换到相关 Form, 处理创建 Form、删除Form、传递参数给 Form的任务，逻辑很复杂，而且造成非常多的重复代码，浪费时间。<br />
+当 Form 种类，数量变多时，那就是梦魇。这不是一个好方法。</p>
+<h3>更好的实现</h3>
+<p>一个更好的办法？单独的 Form Manager 处理所有切换请求，</p>
+<image src="/assets/images/bada_form_new.png">
+<p>它具有:</p>
+<ul>
+	<li>方便的切换</li>
+	<li>自动清理不用的 Form</li>
+	<li>记录点击 Form 的历史</li>
+</ul>
+<p>也就是说 FormMgr 会记录 Form 被创建的顺序。自动返回上一个 Form 并删除子 Form。</p>
+<p>Form 被创建的顺序放堆栈中来实现记录顺序的功能。</p>
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/dev/2012/01/15/new-entrance" title="新的入口">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/life/2012/03/05/winter-vacation" title="寒假实践报告">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>18 January 2012</span></div>
+
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; ZH 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

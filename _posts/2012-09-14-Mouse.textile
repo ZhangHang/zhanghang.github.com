@@ -1,7 +1,8 @@
 ---
 layout: post
-title: 鼠标(MadeByPaper)
+title: 鼠标
 category: doodle
+tags: MadeByPaper
 ---
 
-<img src="/doodle/mouse.PNG" width=700>
+<img src="/assets/doodle/mouse.PNG" width=700>

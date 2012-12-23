@@ -14,4 +14,4 @@ category: life
 Rest in Peace Steve.
 </pre>
 
-<img src="/image/t_hero.png"/>
+<img src="/assets/assets/images/t_hero.png"/>

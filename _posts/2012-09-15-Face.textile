@@ -1,7 +1,8 @@
 ---
 layout: post
-title: 面孔(MadeByPaper)
+title: 面孔
 category: doodle
+tags: MadeByPaper
 ---
 
-<img src="/doodle/face.PNG" width=700>
+<img src="/assets/doodle/face.PNG" width=700>
