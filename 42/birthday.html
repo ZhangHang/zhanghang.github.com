@@ -2,49 +2,54 @@
 <head>
 	<title>Happy Birthday</title>
 	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no">
 	<style type="text/css">
 	body{
-		 background: -webkit-radial-gradient(pink, #666);		
+		background: -webkit-radial-gradient(pink, #666);
 	}
 
 	#puzzle{
+		margin-top: 60px;
+		margin-bottom: auto;
 		margin-left: auto;
 		margin-right: auto;
+		width:610px;
+		height:305px;
+		padding:5px;
+		-webkit-box-shadow: 0 4px 6px 0.3px #333;
+		-webkit-border-radius:10px;
+		background: -webkit-radial-gradient(#aaa, #666);
+		border: 3px dashed #aaa;
+	}
+
+	#board{
+		border-collapse:collapse;
+		width:600px;
+		height:300px;
+		margin:5px;
+		border: 3px dashed rgba(0,0,0,0);
+		-webkit-box-shadow: 0 0.1px 16px 3px #333;
+	}
+	#birthday{
+		margin-top: 40px;
+		width: 250px;
+		text-align: center;
+		color: #555;
+		font-size: 50;
+		margin-left: auto;
+		margin-right: auto;"
+		
 	}
 	</style>
 </head>
 <body>
-	<div id="puzzle" style="
-							width:610px;
-							height:310px;
-							padding:5px;
-							-webkit-box-shadow: 0 4px 6px 0.3px #333;
-							-webkit-border-radius:10px;
-							background: -webkit-radial-gradient(#aaa, #666);
-							border: 3px dashed #aaa;
-							margin-bottom:10px;"
-	>
-		<table id="board" style="
-								border-collapse:collapse;
-								width:600px;
-								height:300px;
-								margin:5px;
-								border: 3px dashed rgba(0,0,0,0);
-								-webkit-box-shadow: 0 0.1px 16px 3px #333;"
-		></table>
+	<div id="puzzle">
+		<table id="board"></table>
 
-		<p id="birthday" style="
-								margin-top: 40px;
-								width: 250px;
-								text-align: center;
-								color: #555;
-								font-size: 50;
-								margin-left: auto;
-								margin-right: auto;"
-		>&nbsp;</p>
+		<p id="birthday">&nbsp;</p>
 
 		<p><script type="text/javascript" src="birthday.js"></script>
-	</div>
-</body>
-</html>
+		</div>
+	</body>
+	</html>
