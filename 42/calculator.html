@@ -2,7 +2,7 @@
 <html lang="zh_CN">
 <head>
 	<meta charset="utf-8">
-	<title>一元二次方程</title>
+	<title>二元一次方程</title>
 	<meta name="author" content="zhanghang">
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 	<style>
@@ -73,15 +73,13 @@
 	var anwers = document.getElementById('anwers');
 
 	function calculate () {
-		var result = checkAndGetParameter();
+		var parameter = checkAndGetParameter();
 
-		if(result === false){
-			
+		if(parameter.HasValue){
+			anwers.innerHTML = '>\n' + calculateByParameter(parameter.Value);
+		}else{
 			anwers.innerHTML = "";
 			//anwers.innerHTML = "输入不合法";
-			return;			
-		}else{
-			anwers.innerHTML = '>\n' + calculateByParameter(result);
 		}
 	}
 
@@ -91,12 +89,18 @@
 		var c = parseFloat(document.getElementById('c').value);
 
 		if( isNaN(a) || isNaN(b)|| isNaN(c))
-			return false;
+			return {
+				HasValue : false,
+				Value : {}
+			};
 
 		return{
-			a:a,
-			b:b,
-			c:c
+			HasValue : true,
+			Value : {
+						a:a,
+						b:b,
+						c:c	
+					}
 		};
 	}
 
