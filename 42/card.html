@@ -2,38 +2,15 @@
 <html lang="en_US">
 <head>
 	<meta charset="utf-8">
-	<title>Flip Card</title>
+	<title>LED</title>
+	<link rel="stylesheet" href="CardStyle.css">
 
-	<style>
-	body{
-		background-color: rgb(170,170,170);
-	}
-
-	.card{
-		width: 200px;
-		height: 200px;
-		margin-top: 100px;
-		margin-left: auto;
-		margin-right: auto;
-		-webkit-transition: -webkit-box-shadow 250ms
-		,background-color 250ms
-		,-webkit-transform 350ms,
-		border-radius 300ms;
-
-		-webkit-transition-delay: -webkit-transform 250ms;
-		-webkit-box-shadow: 0px 0px 1px .5px rgb(100,100,100);
-	}
-
-	.card:hover{
-		-webkit-transform: rotateX(20deg);
-
-		background-color:  rgb(180,180,180);
-		-webkit-box-shadow: 0px 0px 13px 3px #666;
-	};
-	</style>
+	<script type="text/javascript" src="card.js"></script>
 </head>
 <body>
-	<div class="card">
-	</div>
+	<table id="cardContianer">
+	</table>
 </body>
+
+<script>init();</script>
 </html>
