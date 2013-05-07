@@ -1,11 +1,13 @@
 body{
 	margin:0px;
 	background-color: #6C7177;
+	overflow: hidden;
 }
 
 
 table#cardContianer{
 	border: 0px;
+	overflow: hidden;
 }
 
 table#cardContianer tr{

@@ -24,8 +24,16 @@ function init(){
 	var cardheight = 90;
 	var cardwidth = 90;
 	var mainTable = document.getElementById('cardContianer');
-	var row = document.height/cardheight;
-	var colunm = document.width/cardwidth;
+
+
+	while (mainTable.hasChildNodes()) {
+		console.log('remove');
+    	mainTable.removeChild(mainTable.lastChild);
+	}
+
+
+	var row = document.height/cardheight + 1;
+	var colunm = document.width/cardwidth + 1;
 	createCard(row,colunm,mainTable);
 }
 
